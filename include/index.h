@@ -365,6 +365,13 @@ namespace diskann {
     DISKANN_DLLEXPORT size_t load_tags(const std::string tag_file_name);
     DISKANN_DLLEXPORT size_t load_delete_set(const std::string &filename);
 
+    void select_starting_points(
+        Parameters &parameters,
+        std::mt19937& gen,
+        std::set<unsigned> &unique_start_points);
+
+    void save_starting_points(const std::string& result_file_prefix);
+
    private:
     // Distance functions
     Metric       _dist_metric = diskann::L2;
@@ -398,6 +405,8 @@ namespace diskann {
     bool _dynamic_index = false;
     bool _enable_tags = false;
     bool _normalize_vecs = false;  // Using normalied L2 for cosine.
+
+    std::vector<unsigned> _starting_points;
 
     // Indexing parameters
     uint32_t _indexingQueueSize;
